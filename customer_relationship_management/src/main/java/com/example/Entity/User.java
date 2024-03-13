@@ -44,6 +44,7 @@ public User( String name, String email, String organization, String password) {
 	this.name = name;
 	this.email = email;
 	this.organization = organization;
+	
 	this.password = password;
 }
 public User() {
