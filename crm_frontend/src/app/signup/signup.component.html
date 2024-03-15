@@ -1,0 +1,116 @@
+
+<div class="background">
+
+  <div class="c1">
+    <div class="c2">
+      <div class="c3">
+        <div class="c4">
+          <h2>Sign Up</h2>
+        </div>
+        <div class="">
+          <form [formGroup]="fm" (submit)="registeruser(fm.value)" novalidate>
+            <div class="form-group"> 
+              <p>First Name</p>
+              <input
+                type="text"
+                formControlName="firstname"
+                
+                name="firstname"
+                placeholder="Ex: chandra"
+                class="form-control"
+                required/>
+             
+              <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.controls['firstname'].invalid" >First Name is required*</small>
+            </div>
+   
+   
+   
+            <div class="form-group">
+             <p>Last Name</p> 
+              <input
+                type="text"
+                formControlName="lastname"
+                required
+                name="lastname"
+                placeholder="Ex sekhar"
+                class="form-control"/>
+             
+            
+                <small class="form-text text-danger"
+                *ngIf="submitted && fm.controls['lastname'].invalid">Lastname is required*</small>
+            </div>
+   
+            <div class="form-group">
+             <p>Email</p> 
+              <input
+                type="email"
+                formControlName="email"
+                required
+                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                name="email"
+                placeholder="ex: chandrasekhar1126@gmail.com"
+                class="form-control"/>
+          
+           
+                <small  class="form-text text-danger"
+                *ngIf="submitted && fm.controls['email'].invalid">Email is required*</small>
+            </div>
+   
+            <div class="form-group">
+              <p>phone no</p>
+              <input
+                type="phone"
+                maxlength="10"
+                formControlName="mobile"
+                required
+                name="mobile"
+                placeholder="ex: 98482233"
+                class="form-control"/>
+              
+            
+                <small  class="form-text text-danger"
+                *ngIf="submitted && fm.controls['mobile'].invalid">required*</small>
+            </div>
+   
+   
+            <div class="form-group">
+             <P>Password</P> 
+              <input
+                type="password"
+                formControlName="password"
+                required
+                name="password"
+                placeholder="*********"
+                class="form-control"/>
+              <br>
+              
+              <small  class="form-text text-danger"
+                *ngIf="submitted && fm.controls['password'].invalid">Password is compulsary*</small>
+            </div>
+            <h6 style="color: azure;">Already Registerd? <a href="login" class="reg">Login</a></h6>
+            <br>
+            <button type="submit" class="btn btn-primary" >Register</button>
+         
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+   
+  </div> 
+
+
+
+
+
+
+
+
+
+
+
