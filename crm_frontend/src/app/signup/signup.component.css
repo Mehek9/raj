@@ -1,0 +1,30 @@
+.background{
+  background-image: url(../../assets/signuplogo.jpg);
+  height: 750px;
+  
+}
+.c4{
+
+margin-left: 45%;
+color: azure;
+
+}
+
+button{
+  margin-left:40% ;
+}
+.form-group{
+    color: azure;
+  font-weight: bold;
+  padding-bottom: 10px;
+
+}
+form{
+  margin-top: 3%;
+  margin-left: 25%;
+  margin-right: 15%;
+}
+input{
+  width: 700px;
+ 
+}
