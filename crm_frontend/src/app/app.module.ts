@@ -22,6 +22,9 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AboutComponent } from './about/about.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserComponent } from './user/user.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 
 
@@ -36,6 +39,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     SidebarComponent,
     AboutComponent,
     ForgotPasswordComponent,
+    UserComponent,
+    AdminComponent,
+    AdminLoginComponent,
   
   ],
   imports: [
@@ -50,6 +56,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
     ToastrModule.forRoot(),
     
   ],

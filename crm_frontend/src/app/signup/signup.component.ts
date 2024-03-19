@@ -47,14 +47,14 @@ submitted=false;
       this.api.register(values).subscribe({
         next:resp=>{
         console.log(resp)
-        alert("Registerd Successfully")
-        // this.toast.success('Registered successfully')        
+        
+         this.toast.success('Registered successfully')        
           this._router.navigate(['login'])
         },
       error:err=>{
         console.log(err)
-        alert("Something Went wrong, REGISTRATION FAILED")
-        // this.toast.error('Something bad happened',"Registration Failed")
+     
+         this.toast.error('Invalid',"Registration Failed")
       }
     })
   }

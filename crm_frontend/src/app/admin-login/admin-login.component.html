@@ -1,0 +1,56 @@
+<div class="background">
+    <div class="container-fluid">
+      <div class="row">
+        
+           
+        <div class="col-sm-4 offset-1">
+          <div class="card shadow" >
+            <div class="card-header ">
+              <h4 >Admin Login</h4>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="fg" (submit)="validateadmin(fg.value)" novalidate>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    formControlName="username"
+                    required
+                    name="username"
+                    placeholder="Ex: bhuvana"
+                    class="form-control"
+                  /><br>
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="submitted && fg.controls['username'].invalid"
+                    >User id must be given</small
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    formControlName="password"
+                    required
+                    name="password"
+                    placeholder="Password"
+                    class="form-control"
+                  /><br>
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="submitted && fg.controls['password'].invalid"
+                    >Password must be given</small
+                  >
+                </div>
+                
+                <input
+                  type="submit"
+                  value="Sign In"
+                  class="btn btn-primary btn-block"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    </div>
