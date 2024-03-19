@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 
 import { AboutComponent } from './about/about.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserComponent } from './user/user.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,7 +25,10 @@ const routes: Routes = [
   {path:'sidebar',component:SidebarComponent},
   {path:'sidebar',component:SidebarComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
-  {path:'about',component:AboutComponent}
+  {path:'about',component:AboutComponent},
+  {path:'user',component:UserComponent},
+  {path:'admin',component:AdminComponent},
+  {path:'admin-login',component:AdminLoginComponent}
   
 
 ];

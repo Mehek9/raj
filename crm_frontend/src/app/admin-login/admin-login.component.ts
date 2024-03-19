@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SignupService } from '../signup.service';
- 
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrl: './admin-login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class AdminLoginComponent {
+
   submitted = false;
 
   fg!: FormGroup;
@@ -26,18 +27,18 @@ export class LoginComponent implements OnInit{
 
   createForm() {
     this.fg = this.fb.group({
-      'email': ['', Validators.required],
+      'username': ['', Validators.required],
       'password': ['', Validators.required],
     });
   }
 
-  validate(values: any) {
+  validateadmin(values: any) {
     this.submitted = true;
   
     if (this.fg.valid) {
       console.log(values);
   
-      this.api.validate(values).subscribe(
+      this.api.validateadmin(values).subscribe(
         (resp: any) => {
           console.log(resp);
   
@@ -45,12 +46,12 @@ export class LoginComponent implements OnInit{
             // Handle successful login
           
             sessionStorage.setItem("id", resp.data.id);
-            sessionStorage.setItem("email", resp.data.email);
-            sessionStorage.setItem("firstname", resp.data.firstname);
-            sessionStorage.setItem("role","U")
+            sessionStorage.setItem("username", resp.data.username);
+            sessionStorage.setItem("password", resp.data.password);
+            sessionStorage.setItem("role","A")
          
-            this.toast.success('Welcome '+resp.data.firstname,"Login Successful" );
-            this._router.navigate(['user']);
+            this.toast.success('Welcome '+'Admin',"Login Successful" );
+            this._router.navigate(['admin']);
           } else {
             console.error('Invalid response format:', resp);
             
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit{
         },
         (err) => {
           console.error('HTTP error:', err);
-          alert("Invalid userid or Password")
+    
           this.toast.error('Invalid userid or password', 'Login Failed');
         }
       );
@@ -69,3 +70,7 @@ export class LoginComponent implements OnInit{
     }
 
  
+
+
+
+
