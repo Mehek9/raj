@@ -12,14 +12,16 @@ public class user {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO )
-	private Long id;
+	private long id;
 
 	private String firstname;
 	private String lastname;
 	private String email;
 	private Long mobile;
 	private String password;
-	public user(Long id, String firstname, String lastname, String email, Long mobile, String password) {
+	private boolean access;
+	private String otp;
+	public user(Long id, String firstname, String lastname, String email, Long mobile, String password,boolean access,String otp) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -27,14 +29,18 @@ public class user {
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
+		this.access=false;
+		this .otp=otp;
+		
 	}
 	public user() {
 		super();
 	}
-	public Long getId() {
+	
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getFirstname() {
@@ -67,11 +73,26 @@ public class user {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean isAccess() {
+		return access;
+	}
+	public void setAccess(boolean access) {
+		this.access = access;
+	}
+	
+	public String getOtp() {
+		return otp;
+	}
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
 	@Override
 	public String toString() {
 		return "user [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", mobile=" + mobile + ", password=" + password + "]";
+				+ ", mobile=" + mobile + ", password=" + password + ", access=" + access + ", otp=" + otp + "]";
 	}
+	
 	
 	
 	
