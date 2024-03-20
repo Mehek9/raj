@@ -1,0 +1,33 @@
+<!-- user.component.html -->
+<div class="container">
+    <h1>USER ONBOARDING</h1>
+    <table  class="table table-dark table-striped">
+      <thead>
+        <tr>
+            <th scope="col">ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Password</th>
+             <th scope="col">Access</th>
+          <th scope="col">Status</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.id}}</td>
+          <td>{{ user.firstname }}</td>
+          <td>{{ user.lastname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.mobile }}</td>
+          <td>{{ user.password }}</td>
+          <td>{{ user.access }}</td>
+          <td>{{ user.status }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-footer></app-footer>

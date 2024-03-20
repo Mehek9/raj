@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SignupService {
-  BASEURL:string="http://localhost:8080/user/";
-  ADMINURL:string="http://localhost:8989/admin/";
+  BASEURL:string="http://localhost:8989/user/";
+  ADMINURL:string="http://localhost:9191/admin/";
     constructor(private http:HttpClient)
      {
    
@@ -36,4 +36,9 @@ export class SignupService {
   resetPassword(email: string, password: string): Observable<any> {
     return this.http.put(`${this.BASEURL}reset-password`, { email, password },{ responseType: 'text' });
   }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any>(this.ADMINURL+"getuserdetails");
+  }
+
   }

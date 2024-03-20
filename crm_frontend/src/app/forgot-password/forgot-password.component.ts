@@ -18,20 +18,23 @@ export class ForgotPasswordComponent implements OnInit {
   otpSent: boolean = false;
   otpValidationSuccess = false;
   errorMessage!: string;
+  submitted: boolean | undefined;
   constructor(private api: SignupService,private _router:Router, private toast: ToastrService,private formBuilder: FormBuilder) { }
   ngOnInit(): void {
     this.fg = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       // Add more form controls as needed
+      
     });
     
   }
 
   forgotPassword(): void {
+    this.submitted=true;
     this.api.forgotPassword(this.email).subscribe(
       (resp: any) => {
         console.log('OTP sent successfully',resp);
-        this.toast.success('Welcome ',"otp send successfully" );
+        this.toast.success('Welcome ',"otp sent successfully" );
         this.otpSent = true;
         // Handle success (e.g., show message to user)
       },

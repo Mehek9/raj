@@ -1,57 +1,59 @@
 <div class="background">
-<div class="container-fluid">
-  <div class="row">
-    
-       
-    <div class="col-sm-4 offset-1">
-      <div class="card shadow" >
-        <div class="card-header ">
-          <h4 >Customer Login</h4>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="fg" (submit)="validate(fg.value)" novalidate>
-            <div class="form-group">
-              <input
-                type="email"
-                formControlName="email"
-                required
-                name="email"
-                placeholder="Email"
-                class="form-control"
-              /><br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 offset-1">
+        <div class="card shadow">
+          <div class="card-header">
+            <h4>Customer Login</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="fg" (ngSubmit)="validate(fg.value)" novalidate>
+              <div class="form-group">
+                <input
+                  type="email"
+                  formControlName="email"
+                  required
+                  name="email"
+                  placeholder="Email"
+                  class="form-control"
+                /><br>
+                <small
+                class="form-text text-danger"
+                *ngIf="submitted && fg.get('email')?.hasError('required')"
+              >Email is required</small>
               <small
                 class="form-text text-danger"
-                *ngIf="submitted && fg.controls['email'].invalid"
-                >User id must be given</small
-              >
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                formControlName="password"
-                required
-                name="password"
-                placeholder="Password"
-                class="form-control"
-              /><br>
+                *ngIf="submitted && fg.get('email')?.hasError('email')"
+              >Invalid email address</small>
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  formControlName="password"
+                  required
+                  name="password"
+                  placeholder="Password"
+                  class="form-control"
+                /><br>
+                <small
+                class="form-text text-danger"
+                *ngIf="submitted && fg.get('password')?.hasError('required')"
+              >Password is required</small>
               <small
                 class="form-text text-danger"
-                *ngIf="submitted && fg.controls['password'].invalid"
-                >Password must be given</small
-              >
-            </div>
-            <h6>New User? <a href="signup" class="signupp">signup</a></h6>
-      <h6>Forgot Password? <a href="forgot-password" class="signupp">Click Here</a></h6><br>
-            <input
-              type="submit"
-              value="Sign In"
-              class="btn btn-primary btn-block"
-            />
-          </form>
+                *ngIf="submitted && fg.get('password')?.hasError('minlength')"
+              >Password must be at least 8 characters long  </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="submitted && fg.get('password')?.hasError('invalidPassword')">[ Password must contain at least one uppercase letter, one lowercase letter, and one number]</small>
+              </div>
+              <h6>New User? <a routerLink="/signup" class="signupp">Signup</a></h6>
+              <h6>Forgot Password? <a routerLink="/forgot-password" class="signupp">Click Here</a></h6><br>
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 </div>

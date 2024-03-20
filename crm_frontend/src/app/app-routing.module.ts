@@ -13,6 +13,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { OnboardComponent } from './onboard/onboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   {path:'about',component:AboutComponent},
   {path:'user',component:UserComponent},
   {path:'admin',component:AdminComponent},
-  {path:'admin-login',component:AdminLoginComponent}
+  {path:'admin-login',component:AdminLoginComponent},
+  {path:'onboard',component:OnboardComponent}
   
 
 ];
