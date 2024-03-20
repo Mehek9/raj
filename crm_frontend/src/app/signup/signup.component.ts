@@ -15,6 +15,7 @@ user: any;
 email: any;
 submitted=false;
   fm! : FormGroup;
+fg: any;
      constructor(
     private fb:FormBuilder,
     private api:SignupService,
@@ -32,11 +33,25 @@ submitted=false;
     this.fm=this.fb.group({
       'firstname':['',Validators.required],
       'lastname':['',Validators.required],
-      'email':['',Validators.required],
-      'mobile':['',Validators.required],
-      'password':['',Validators.required],
+      'email': ['', [Validators.required, Validators.email]],
+       'mobile':['',Validators.required],
+      'password': ['', [Validators.required, Validators.minLength(8), this.customPasswordValidator()]],
+     
      
     })
+  }
+  customPasswordValidator(): any | string {
+    return (control: any) => {
+      const password = control.value;
+      if (!password) {
+        return null;
+      }
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasLowercase = /[a-z]/.test(password);
+      const hasNumber = /\d/.test(password);
+      const isValid = hasUppercase && hasLowercase && hasNumber;
+      return isValid ? null : { invalidPassword: true };
+    };
   }
  
   registeruser(values:any){

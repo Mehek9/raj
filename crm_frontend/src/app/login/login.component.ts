@@ -26,9 +26,26 @@ export class LoginComponent implements OnInit{
 
   createForm() {
     this.fg = this.fb.group({
-      'email': ['', Validators.required],
-      'password': ['', Validators.required],
+      'email': ['', [Validators.required, Validators.email]],
+      'password': ['', [Validators.required, Validators.minLength(8), this.customPasswordValidator()]],
     });
+  
+  
+  }
+  customPasswordValidator(): any | string {
+    return (control: any) => {
+      const password = control.value;
+      if (!password) {
+        return null;
+      }
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasLowercase = /[a-z]/.test(password);
+      const hasNumber = /\d/.test(password);
+      const isValid = hasUppercase && hasLowercase && hasNumber;
+      return isValid ? null : { invalidPassword: true };
+    };
+
+    
   }
 
   validate(values: any) {

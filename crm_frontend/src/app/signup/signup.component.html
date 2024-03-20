@@ -1,6 +1,5 @@
-
 <div class="background">
-
+ 
   <div class="c1">
     <div class="c2">
       <div class="c3">
@@ -9,12 +8,12 @@
         </div>
         <div class="">
           <form [formGroup]="fm" (submit)="registeruser(fm.value)" novalidate>
-            <div class="form-group"> 
+            <div class="form-group">
               <p>First Name</p>
               <input
                 type="text"
                 formControlName="firstname"
-                
+               
                 name="firstname"
                 placeholder="Ex: chandra"
                 class="form-control"
@@ -28,7 +27,7 @@
    
    
             <div class="form-group">
-             <p>Last Name</p> 
+             <p>Last Name</p>
               <input
                 type="text"
                 formControlName="lastname"
@@ -37,13 +36,13 @@
                 placeholder="Ex sekhar"
                 class="form-control"/>
              
-            
+           
                 <small class="form-text text-danger"
                 *ngIf="submitted && fm.controls['lastname'].invalid">Lastname is required*</small>
             </div>
    
             <div class="form-group">
-             <p>Email</p> 
+             <p>Email</p>
               <input
                 type="email"
                 formControlName="email"
@@ -52,10 +51,15 @@
                 name="email"
                 placeholder="ex: chandrasekhar1126@gmail.com"
                 class="form-control"/>
-          
-           
-                <small  class="form-text text-danger"
-                *ngIf="submitted && fm.controls['email'].invalid">Email is required*</small>
+         
+                <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('email')?.hasError('required')"
+              >Email is required</small>
+              <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('email')?.hasError('email')"
+              >Invalid email address</small>
             </div>
    
             <div class="form-group">
@@ -67,50 +71,58 @@
                 required
                 name="mobile"
                 placeholder="ex: 98482233"
+                pattern="[6-9][0-9]{9}"
                 class="form-control"/>
-              
-            
-                <small  class="form-text text-danger"
-                *ngIf="submitted && fm.controls['mobile'].invalid">required*</small>
+
+                <small class="form-text text-danger" *ngIf="submitted && fm.get('mobile')?.hasError('pattern')">
+                  Please enter a valid 10-digit phone number starting with a digit between 6 and 9.
+                </small>
+                
+
+                <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('mobile')?.hasError('required')"
+              >Phone number is required</small>
+              <!-- <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('mobile')?.hasError('pattern')"
+              >Please enter a valid 10-digit phone number</small> -->
             </div>
-   
-   
             <div class="form-group">
-             <P>Password</P> 
-              <input
-                type="password"
-                formControlName="password"
-                required
-                name="password"
-                placeholder="*********"
-                class="form-control"/>
-              <br>
+              <P>Password</P>
+               <input
+                 type="password"
+                 formControlName="password"
+                 required
+                 name="password"
+                 placeholder="*********"
+                 class="form-control"/>
+               <br>
               
-              <small  class="form-text text-danger"
-                *ngIf="submitted && fm.controls['password'].invalid">Password is compulsary*</small>
-            </div>
-            <h6 style="color: azure;">Already Registerd? <a href="login" class="reg">Login</a></h6>
-            <br>
-            <button type="submit" class="btn btn-primary" >Register</button>
-         
+               <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('password')?.hasError('required')"
+              >Password is required</small>
+              <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('password')?.hasError('minlength')"
+              >Password must be at least 8 characters long  </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="submitted && fm.get('password')?.hasError('invalidPassword')">
+                [ Password must contain at least one uppercase letter, one lowercase letter, and one number]</small>
+             </div>
+             <h6 style="color: azure;">Already Registerd? <a href="login" class="reg">Login</a></h6>
+             <br>
+             <button type="submit" class="btn btn-primary" >Register</button>
+          
             
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12">
-   
-  </div> 
-
-
-
-
-
-
-
-
-
-
-
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+  
+   <div class="col-12">
+    
+   </div>
