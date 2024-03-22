@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,9 @@ import com.crm.app.dto.signupDTO;
 import com.crm.app.entity.user;
 import com.crm.app.service.userService;
 
+import jakarta.validation.Valid;
+
+@Validated
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -30,7 +34,7 @@ public class userController {
 	private userService userservice;
 	
 	@PostMapping("/saveuser")
-	public ResponseEntity<?> userRegistration(@RequestBody signupDTO signupdto){
+	public ResponseEntity<?> userRegistration( @Valid @RequestBody signupDTO signupdto){
 		return userservice.userRegistration(signupdto);
 	}
 	@GetMapping("/getuser")
@@ -49,9 +53,10 @@ public class userController {
 //	}
 	
 	@PutMapping("/giveapproval/{email}")
-	public String access(@PathVariable String email) {
+	public ResponseEntity<?> access(@PathVariable String email) {
 		return userservice.access(email);
 	}
+	
 	
 	 @PostMapping("/forgot-password")
 	    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> body) {
@@ -65,10 +70,9 @@ public class userController {
 	        return userservice.validateOTP(email, otp);
 	    }
 	 @PutMapping("/reset-password")
-	    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> body) {
-	        String email = body.get("email");
-	        String password = body.get("password");
-	        return userservice.resetPassword(email, password);
+	    public ResponseEntity<?> resetPassword( @Valid @RequestBody loginDTO logindto) {
+	        
+	        return userservice.resetPassword(logindto);
 	    }
 }
 

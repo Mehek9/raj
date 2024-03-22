@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit{
         },
         (err) => {
           console.error('HTTP error:', err);
-          alert("Invalid userid or Password")
+          // alert("Invalid userid or Password")
           this.toast.error('Invalid userid or password', 'Login Failed');
         }
       );
