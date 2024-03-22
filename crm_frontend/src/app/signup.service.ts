@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SignupService {
-  BASEURL:string="http://localhost:8989/user/";
-  ADMINURL:string="http://localhost:9191/admin/";
+  BASEURL:string="http://localhost:8080/user/";
+  ADMINURL:string="http://localhost:8082/admin/";
     constructor(private http:HttpClient)
      {
    
@@ -41,4 +41,7 @@ export class SignupService {
     return this.http.get<any>(this.ADMINURL+"getuserdetails");
   }
 
+  approveAccess(email: string): Observable<any> {
+    return this.http.put<any>(`${this.ADMINURL}giveapproval/${email}`, {responseType: 'text'});
+  }
   }

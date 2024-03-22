@@ -17,11 +17,11 @@ public class user {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private Long mobile;
+	private String mobile;
 	private String password;
 	private boolean access;
 	private String otp;
-	public user(Long id, String firstname, String lastname, String email, Long mobile, String password,boolean access,String otp) {
+	public user(Long id, String firstname, String lastname, String email, String mobile, String password,boolean access,String otp) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -61,10 +61,10 @@ public class user {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Long getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
-	public void setMobile(Long mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	public String getPassword() {

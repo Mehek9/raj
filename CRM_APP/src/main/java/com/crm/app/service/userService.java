@@ -8,6 +8,8 @@ import com.crm.app.dto.loginDTO;
 import com.crm.app.dto.signupDTO;
 import com.crm.app.entity.user;
 
+import jakarta.validation.Valid;
+
 public interface userService {
 
 	ResponseEntity<?> userRegistration(signupDTO signupdto);
@@ -24,7 +26,7 @@ public interface userService {
 
 
 
-	public String access(String email);
+	public ResponseEntity<?> access(String email);
 
 
 
@@ -36,7 +38,11 @@ public	ResponseEntity<?> validateOTP(String email, String otp);
 
 
 
-public ResponseEntity<?> resetPassword(String email, String password);
+
+
+
+
+ResponseEntity<?> resetPassword(@Valid loginDTO logindto);
 
 
 

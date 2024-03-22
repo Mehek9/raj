@@ -1,8 +1,16 @@
 package com.crm.app.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+
 public class loginDTO {
 
+	@NotEmpty
+	@Pattern(regexp = ".*@gmail\\.com$" , message="Email must contain @gmail.com")
 	private String email;
+	
+	@NotEmpty
+	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,}$", message="password should contain min 8 characters with alphabets,numeric and special character ")
 	
 	private String password;
 

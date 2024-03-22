@@ -11,7 +11,7 @@
           <th scope="col">Phone Number</th>
           <th scope="col">Password</th>
              <th scope="col">Access</th>
-          <th scope="col">Status</th>
+          <th scope="col">Action</th>
          
         </tr>
       </thead>
@@ -24,8 +24,11 @@
           <td>{{ user.mobile }}</td>
           <td>{{ user.password }}</td>
           <td>{{ user.access }}</td>
-          <td>{{ user.status }}</td>
           
+          <td>
+            <a class=k (click)="approveAccess(user.email)">Approve/Reject</a>
+   
+          </td>
         </tr>
       </tbody>
     </table>

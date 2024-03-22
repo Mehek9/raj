@@ -17,6 +17,8 @@ import com.crm.app.dto.signupDTO;
 import com.crm.app.entity.user;
 import com.crm.app.repo.userRepo;
 
+import jakarta.validation.Valid;
+
 @Service
 public class userServiceIMPL implements userService{
 
@@ -40,7 +42,7 @@ public class userServiceIMPL implements userService{
 //			emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM", "welcome");
 			   emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " Your registration was successful for LOKIS crm app",u2.getFirstname(), "welcome");
 		       
-			return new ResponseEntity<>("{\"status\": \"logged in\"}", HttpStatus.OK);
+			return new ResponseEntity<>("{\"status\": \"registered\"}", HttpStatus.OK);
 			
 			//{\"status\": \"logged in\"}
 		}
@@ -55,9 +57,9 @@ public class userServiceIMPL implements userService{
 			
 			return new ResponseEntity<>("Not registered",HttpStatus.BAD_REQUEST);
 		}
-//		if(u3.isAccess()==false) {
-//			return new ResponseEntity<>("Not permitted",HttpStatus.BAD_REQUEST);
-//		}
+		if(u3.isAccess()==false) {
+			return new ResponseEntity<>("Not permitted",HttpStatus.BAD_REQUEST);
+		}
 		
 		if(u3.getPassword().equals(logindto.getPassword())) {
 			     
@@ -88,12 +90,17 @@ public class userServiceIMPL implements userService{
 	}
 
 	@Override
-	public String access(String email) {
+	public ResponseEntity<?> access(String email) {
 		user u6 = userrepo.findByEmail(email);
-		u6.setAccess(true);
+		if(u6.isAccess()== false) {
+			u6.setAccess(true);
+			userrepo.save(u6);
+			emailforregistration.sendEmailWithAttachment(email,  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM", "welcome");
+			return new ResponseEntity<>("{\"status\": \"success\"}", HttpStatus.OK);	
+		}
+		u6.setAccess(false);
 		userrepo.save(u6);
-		emailforregistration.sendEmailWithAttachment(email,  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM", "welcome");
-		return "success";
+		return new ResponseEntity<>("{\"status\": \"failed\"}", HttpStatus.OK);
 	}
 	 private Map<String, String> otpCache = new HashMap<>();
 
@@ -137,23 +144,20 @@ public class userServiceIMPL implements userService{
 	
 
 
-	@Override
-	public ResponseEntity<?> resetPassword(String email, String password) {
-		 user u8= userrepo.findByEmail(email);
-	        if (u8 == null) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-	        }
-
-	        u8.setPassword(password);
-	        userrepo.save(u8);
-	        emailforregistration.sendEmailWithAttachment(email,  " your password reset was successful for LOKIS crm app",u8.getFirstname(), "welcome");
-	        return ResponseEntity.ok("Password updated successfully");
-		
-		
-
 	
 
-
+	@Override
+	public ResponseEntity<?> resetPassword(@Valid loginDTO logindto) {
+		
+		user u8= userrepo.findByEmail(logindto.getEmail());
+        if (u8 == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+       
+        u8.setPassword(logindto.getPassword());
+        userrepo.save(u8);
+        emailforregistration.sendEmailWithAttachment(logindto.getEmail(),  " your password reset was successful for LOKIS crm app",u8.getFirstname(), "welcome");
+        return ResponseEntity.ok("Password updated successfully");
 	}
 
 
