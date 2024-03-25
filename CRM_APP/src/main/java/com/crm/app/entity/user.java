@@ -1,6 +1,12 @@
 package com.crm.app.entity;
 
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +27,14 @@ public class user {
 	private String password;
 	private boolean access;
 	private String otp;
+	@CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime created_at;
+	
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private LocalDateTime updated_at;
+
 	public user(Long id, String firstname, String lastname, String email, String mobile, String password,boolean access,String otp) {
 		super();
 		this.id = id;
