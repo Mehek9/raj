@@ -6,8 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SignupService {
-  BASEURL:string="http://localhost:8080/user/";
-  ADMINURL:string="http://localhost:8082/admin/";
+  pipe(arg0: any, arg1: any): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
+  BASEURL:string="http://localhost:8055/user/";
+  ADMINURL:string="http://localhost:9191/admin/";
     constructor(private http:HttpClient)
      {
    
@@ -40,8 +43,13 @@ export class SignupService {
   getUsers(): Observable<any[]> {
     return this.http.get<any>(this.ADMINURL+"getuserdetails");
   }
-
+  // grantAccess(email: string): Observable<any> {
+  //   return this.http.put(`${this.ADMINURL}access/${email}`, {});
+  // }
+  
   approveAccess(email: string): Observable<any> {
     return this.http.put<any>(`${this.ADMINURL}giveapproval/${email}`, {responseType: 'text'});
   }
+  
+
   }

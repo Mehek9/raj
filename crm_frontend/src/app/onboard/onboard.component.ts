@@ -1,9 +1,7 @@
-// onboard.component.ts
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SignupService } from '../signup.service';
 import { Router } from '@angular/router';
 import {  ChangeDetectorRef } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
  
 @Component({
   selector: 'app-onboard',
@@ -13,14 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class OnboardComponent implements OnInit {
   users!: any[];
-
-  constructor(private api: SignupService, private _router:Router, private toast: ToastrService) {}
-
+ 
+  constructor(private api: SignupService, private _router:Router,private cdr: ChangeDetectorRef) {}
+ 
  
   ngOnInit(): void {
     this.getUsers();
   }
-
+ 
   getUsers(): void {
     this.api.getUsers().subscribe(data => {
       this.users = data.map((user: any) => ({
@@ -31,13 +29,13 @@ export class OnboardComponent implements OnInit {
       }));
     });
   }
-
+ 
   approveAccess(email: string): void {
     const user = this.users.find(u => u.email === email);
     if (user) {
       // Toggle the access status
-      user.access = user.access === 'Denied' ? 'Granted' : 'Granted';
-
+      user.access = user.access === 'Denied' ? 'Granted' : 'Denied';
+ 
       // Call the API to update access status
       this.api.approveAccess(email).subscribe(response => {
         // Handle response if needed

@@ -1,0 +1,6 @@
+<!-- powerbi-toggle.component.html -->
+<button (click)="toggleReport()">User Onboarding Report</button>
+
+<div *ngIf="showReport" class="powerbi-container">
+    <iframe class="powerbi-frame" title="Userdashboard" src="https://app.powerbi.com/reportEmbed?reportId=0f418d5b-243a-40d1-bfbc-c0ffc1cfe7a3&autoAuth=true&ctid=93f33571-550f-43cf-b09f-cd331338d086" frameborder="0" allowFullScreen="true"></iframe>
+</div>
