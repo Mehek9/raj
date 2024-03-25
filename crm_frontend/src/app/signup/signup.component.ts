@@ -34,7 +34,7 @@ fg: any;
       'firstname':['',Validators.required],
       'lastname':['',Validators.required],
       'email': ['', [Validators.required, Validators.email]],
-       'mobile':['',Validators.required],
+       'mobile':['',[Validators.required, Validators.pattern('^\\d{10}$')]],
       'password': ['', [Validators.required, Validators.minLength(8), this.customPasswordValidator()]],
      
      
@@ -72,7 +72,4 @@ fg: any;
          this.toast.error('Invalid',"Registration Failed")
       }
     })
-  }
-  }
-
-}
+    }}}

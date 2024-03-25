@@ -1,5 +1,11 @@
 package com.crm.app.dto;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
@@ -20,8 +26,14 @@ public class signupDTO {
 	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,}$", message="password should contain min 8 characters with alphabets,numeric and special character ")
 	
 	private String password;
+	@CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime created_at;
 	
-	
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private LocalDateTime updated_at;
+
 	public signupDTO(Long id, String firstname, String lastname, String email, String mobile, String password) {
 		super();
 		this.id = id;

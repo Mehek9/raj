@@ -33,8 +33,9 @@ export class ForgotPasswordComponent implements OnInit {
     this.submitted=true;
     this.api.forgotPassword(this.email).subscribe(
       (resp: any) => {
-        console.log('OTP sent successfully',resp);
         this.toast.success('Welcome ',"otp sent successfully" );
+        console.log('OTP sent successfully',resp);
+        
         this.otpSent = true;
         // Handle success (e.g., show message to user)
       },

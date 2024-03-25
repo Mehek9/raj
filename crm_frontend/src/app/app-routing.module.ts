@@ -14,6 +14,8 @@ import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { OnboardComponent } from './onboard/onboard.component';
+import { ReportsComponent } from './reports/reports.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,7 +32,9 @@ const routes: Routes = [
   {path:'user',component:UserComponent},
   {path:'admin',component:AdminComponent},
   {path:'admin-login',component:AdminLoginComponent},
-  {path:'onboard',component:OnboardComponent}
+  {path:'onboard',component:OnboardComponent},
+  {path:'reports',component:ReportsComponent}
+  
   
 
 ];

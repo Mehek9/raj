@@ -1,0 +1,25 @@
+/* powerbi-toggle.component.css */
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5%;
+  
+  }
+  
+  .powerbi-container {
+  margin: 5%;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 650px;
+  }
+  
+  .powerbi-frame {
+    width: 100%;
+    height: 541.25px; /* Adjust height as needed */
+    border: none;
+  }
+  
