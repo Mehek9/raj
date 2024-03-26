@@ -2,7 +2,7 @@ package com.crm.app.exception;
 
 public class UserExistsException extends Exception {
 
-	String msg="already exists";
+	final String msg="already exists";
 	 
 	public UserExistsException() {
 		super();

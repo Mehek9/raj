@@ -28,6 +28,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { ChatgptComponent } from './chatgpt/chatgpt.component';
 import { ReportsComponent } from './reports/reports.component';
+import { TicketComponent } from './ticket/ticket.component';
+import { CustomersupportComponent } from './customersupport/customersupport.component';
+import { TicketstatusComponent } from './ticketstatus/ticketstatus.component';
 
 
 
@@ -49,6 +52,9 @@ import { ReportsComponent } from './reports/reports.component';
     OnboardComponent,
     ChatgptComponent,
     ReportsComponent,
+    TicketComponent,
+    CustomersupportComponent,
+    TicketstatusComponent,
 
   
   ],

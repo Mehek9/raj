@@ -15,6 +15,9 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { ReportsComponent } from './reports/reports.component';
+import { TicketComponent } from './ticket/ticket.component';
+import { CustomersupportComponent } from './customersupport/customersupport.component';
+import { TicketstatusComponent } from './ticketstatus/ticketstatus.component';
 
 
 const routes: Routes = [
@@ -33,8 +36,10 @@ const routes: Routes = [
   {path:'admin',component:AdminComponent},
   {path:'admin-login',component:AdminLoginComponent},
   {path:'onboard',component:OnboardComponent},
-  {path:'reports',component:ReportsComponent}
-  
+  {path:'reports',component:ReportsComponent},
+  {path:'ticket',component:TicketComponent},
+  {path:'support',component:CustomersupportComponent},
+  {path:'ticket-status',component:TicketstatusComponent}
   
 
 ];

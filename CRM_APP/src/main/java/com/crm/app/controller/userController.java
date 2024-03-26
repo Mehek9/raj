@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.crm.app.dto.loginDTO;
 import com.crm.app.dto.signupDTO;
+import com.crm.app.entity.Ticket;
 import com.crm.app.entity.user;
 import com.crm.app.service.userService;
 
@@ -47,10 +48,7 @@ public class userController {
 	public ResponseEntity<?> Login(@RequestBody loginDTO logindto){
 		return userservice.Login(logindto);
 	}
-//	@PutMapping("/forgotpassword/{email}/{password}")
-//	public ResponseEntity<?> forgotpassword(@PathVariable String email,@PathVariable String password){
-//		return userservice.forgotpassword(email,password);
-//	}
+
 	
 	@PutMapping("/giveapproval/{email}")
 	public ResponseEntity<?> access(@PathVariable String email) {
@@ -73,6 +71,19 @@ public class userController {
 	    public ResponseEntity<?> resetPassword( @Valid @RequestBody loginDTO logindto) {
 	        
 	        return userservice.resetPassword(logindto);
+	    }
+	 
+	 @PostMapping("/ticket")
+	 public ResponseEntity<?>  createTicket(@RequestBody Ticket ticket) {   
+	  
+	 return userservice.createTicket(ticket);    
+	
+	 }
+	 
+	 @GetMapping("/tickets")
+	    public ResponseEntity<List<Ticket>> getAllTickets() {
+	        
+	        return  userservice.getAllTickets();
 	    }
 }
 

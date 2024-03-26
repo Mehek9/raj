@@ -1,0 +1,14 @@
+<div class="background">
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+    <div>
+        <h1>New Ticket</h1>
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" formControlName="title">
+    </div>
+    <div>
+    <label for="description">Description:</label><br>
+    <textarea id="description" formControlName="description"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!ticketForm.valid">Create Ticket</button>
+    </form>
+ </div>
