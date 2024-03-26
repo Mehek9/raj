@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.crm.app.dto.loginDTO;
 import com.crm.app.dto.signupDTO;
+import com.crm.app.entity.Ticket;
 import com.crm.app.entity.user;
 
 import jakarta.validation.Valid;
@@ -43,6 +44,14 @@ public	ResponseEntity<?> validateOTP(String email, String otp);
 
 
 ResponseEntity<?> resetPassword(@Valid loginDTO logindto);
+
+
+
+ResponseEntity<?> createTicket(Ticket ticket);
+
+
+
+ResponseEntity<List<Ticket>> getAllTickets();
 
 
 

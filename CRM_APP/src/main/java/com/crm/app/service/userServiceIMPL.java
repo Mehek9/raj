@@ -3,7 +3,7 @@ package com.crm.app.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 import java.util.Random;
 
 import org.modelmapper.ModelMapper;
@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.crm.app.dto.loginDTO;
 import com.crm.app.dto.signupDTO;
+import com.crm.app.entity.Ticket;
 import com.crm.app.entity.user;
+import com.crm.app.repo.TicketRepo;
 import com.crm.app.repo.userRepo;
 
 import jakarta.validation.Valid;
@@ -31,6 +33,8 @@ public class userServiceIMPL implements userService{
 	@Autowired
 	private EmailForRegistration emailforregistration;
 
+	@Autowired
+	private TicketRepo ticketrepo;
 
 	@Override
 	public ResponseEntity<?> userRegistration(signupDTO signupdto) {
@@ -40,7 +44,7 @@ public class userServiceIMPL implements userService{
 		if(u1==null) {
 			userrepo.save(u2);
 //			emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM", "welcome");
-			   emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " Your registration was successful for LOKIS crm app",u2.getFirstname(), "welcome");
+			   emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " Your registration was successful for LOKIS crm app",u2.getFirstname());
 		       
 			return new ResponseEntity<>("{\"status\": \"registered\"}", HttpStatus.OK);
 			
@@ -95,7 +99,7 @@ public class userServiceIMPL implements userService{
 		if(u6.isAccess()== false) {
 			u6.setAccess(true);
 			userrepo.save(u6);
-			emailforregistration.sendEmailWithAttachment(email,  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM", "welcome");
+			emailforregistration.sendEmailWithAttachment(email,  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM");
 			return new ResponseEntity<>("{\"status\": \"success\"}", HttpStatus.OK);	
 		}
 		u6.setAccess(false);
@@ -118,7 +122,7 @@ public class userServiceIMPL implements userService{
 	        u7.setOtp(otp);
 	        userrepo.save(u7);
 
-	        emailforregistration.sendMail(email, "reset password", "  "+u7.getOtp(), otp);
+	        emailforregistration.sendMail(email, "reset password", "  "+u7.getOtp());
 	    	
 	        
 	        return ResponseEntity.ok("OTP sent successfully");
@@ -156,11 +160,27 @@ public class userServiceIMPL implements userService{
        
         u8.setPassword(logindto.getPassword());
         userrepo.save(u8);
-        emailforregistration.sendEmailWithAttachment(logindto.getEmail(),  " your password reset was successful for LOKIS crm app",u8.getFirstname(), "welcome");
+        emailforregistration.sendEmailWithAttachment(logindto.getEmail(),  " your password reset was successful for LOKIS crm app",u8.getFirstname());
         return ResponseEntity.ok("Password updated successfully");
 	}
 
+	@Override
+	public ResponseEntity<?> createTicket(Ticket ticket) {
+		 ticketrepo.save(ticket);
+		  return new ResponseEntity<>("{\"status\": \"Ticket Created Successfully\"}", HttpStatus.CREATED);  
+	
+	}
 
+	@Override
+	public ResponseEntity<List<Ticket>> getAllTickets() {
+		 
+		 
+		 return new ResponseEntity<>( ticketrepo.findAll(),HttpStatus.OK); 
+		
+	}
+
+
+	
 	
  
 }
