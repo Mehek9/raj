@@ -1,0 +1,27 @@
+form{
+    height: 650px;
+}
+h1{
+    text-align: center;
+    color: azure;
+}
+label{
+    margin-top: 2%;
+   margin-left: 30%;
+   color: azure;
+}
+input{
+    margin-left: 30%;
+}
+textarea{
+    margin-left: 30%;
+    width: 500px;
+}
+button{
+    margin-top: 3%;
+    margin-left: 30%;
+}
+.background{
+    background-image: url(../../assets/signuplogo.jpg);
+    height:650px;
+  }
