@@ -1,14 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { SignupService } from './signup.service';
  
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent  implements OnInit{
   [x: string]: any;
  
 selectedUserType: any;
@@ -23,14 +24,21 @@ throw new Error('Method not implemented.');
   search: any;
   cats: any;
  
-  constructor(private _router:Router, private api:SignupService, private route:ActivatedRoute) { }
- 
+  constructor(
+    private _router:Router, 
+    private api:SignupService, 
+    private route:ActivatedRoute,
+
+    ) 
+    { }
+  
   // Use a getter method to get the role value
   get role(): string | null {
     return sessionStorage.getItem("role");
   }
  
   ngOnInit(): void {
+    
     if (!this.role) {
     }
     console.log("role", this.role)
@@ -49,9 +57,9 @@ throw new Error('Method not implemented.');
       }
  
     }
+    }
+
+    
 
 
 
-
-
-}

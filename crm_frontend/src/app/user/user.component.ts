@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { SignupService } from '../signup.service';
-
+declare global {
+  interface Window {
+    fwSettings: {
+      widget_id: string;
+    };
+  }
+}
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -8,13 +14,18 @@ import { SignupService } from '../signup.service';
 })
 export class UserComponent {
 
-  uinfo:any;
-  constructor(private api:SignupService) { }
-  ngOnInit(): void {
-    // this.api.getcustomerdetails(sessionStorage.getItem('id'))
-    // .subscribe({
-    //   next:resp=>this.uinfo=resp
-    }
+  constructor(private ngZone: NgZone) {
+    this.ngZone.runOutsideAngular(() => {
+      window.fwSettings = {
+        'widget_id':'1060000001082'
+      };
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = 'https://ind-widget.freshworks.com/widgets/1060000001082.js';
+      document.body.appendChild(script);
+    });
   }
+}
 
 
