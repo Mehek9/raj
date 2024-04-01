@@ -2,15 +2,21 @@ package com.crm.app.entity;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 
@@ -34,8 +40,16 @@ public class user {
 	@UpdateTimestamp
 	@Column(name = "updated_at")
 	private LocalDateTime updated_at;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<Contacts> contacts;
 
-	public user(Long id, String firstname, String lastname, String email, String mobile, String password,boolean access,String otp) {
+
+	
+	
+	public user(long id, String firstname, String lastname, String email, String mobile, String password,
+			boolean access, String otp, LocalDateTime created_at, LocalDateTime updated_at, List<Contacts> contacts) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -43,14 +57,20 @@ public class user {
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
-		this.access=false;
-		this .otp=otp;
-		
-	}
-	public user() {
-		super();
+		this.access = access;
+		this.otp = otp;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.contacts = contacts;
 	}
 	
+	
+	public user() {
+		super();
+		
+	}
+
+
 	public long getId() {
 		return id;
 	}
@@ -101,12 +121,25 @@ public class user {
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
+
+
+	public List<Contacts> getContacts() {
+		return contacts;
+	}
+
+
+	public void setContacts(List<Contacts> contacts) {
+		this.contacts = contacts;
+	}
+
+
 	@Override
 	public String toString() {
 		return "user [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", mobile=" + mobile + ", password=" + password + ", access=" + access + ", otp=" + otp + "]";
+				+ ", mobile=" + mobile + ", password=" + password + ", access=" + access + ", otp=" + otp
+				+ ", created_at=" + created_at + ", updated_at=" + updated_at + ", contacts=" + contacts + "]";
 	}
-	
+
 	
 	
 	
