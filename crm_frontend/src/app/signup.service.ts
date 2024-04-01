@@ -56,8 +56,9 @@ export class SignupService {
     return this.http.post<any>(`${this.BASEURL}ticket`,ticketData);
      
       }
-
       getAllTickets(): Observable<any> {
-        return this.http.get<any>(`${this.BASEURL}tickets`);
+        return this.http.get<any>(`${this.BASEURL}t`);
       }
+
+
   }

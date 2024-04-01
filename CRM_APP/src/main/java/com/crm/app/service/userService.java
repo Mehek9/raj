@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.crm.app.dto.loginDTO;
 import com.crm.app.dto.signupDTO;
-import com.crm.app.entity.Ticket;
+import com.crm.app.entity.Contacts;
 import com.crm.app.entity.user;
 
 import jakarta.validation.Valid;
@@ -47,11 +47,21 @@ ResponseEntity<?> resetPassword(@Valid loginDTO logindto);
 
 
 
-ResponseEntity<?> createTicket(Ticket ticket);
+void addContactToUser(Long userId, Contacts body);
 
 
 
-ResponseEntity<List<Ticket>> getAllTickets();
+List<Contacts> getContactsByUser(Long userId);
+
+
+
+
+
+
+
+
+
+
 
 
 

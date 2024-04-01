@@ -28,6 +28,7 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { OnboardComponent } from './onboard/onboard.component';
 
 import { ReportsComponent } from './reports/reports.component';
+import { SupportComponent } from './support/support.component';
 
 
 
@@ -50,6 +51,7 @@ import { ReportsComponent } from './reports/reports.component';
     OnboardComponent,
    
     ReportsComponent,
+         SupportComponent,
 
 
   

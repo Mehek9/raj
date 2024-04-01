@@ -1,22 +1,29 @@
 package com.crm.app.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.crm.app.dto.loginDTO;
 import com.crm.app.dto.signupDTO;
-import com.crm.app.entity.Ticket;
+import com.crm.app.entity.Contacts;
 import com.crm.app.entity.user;
-import com.crm.app.repo.TicketRepo;
+
 import com.crm.app.repo.userRepo;
 
 import jakarta.validation.Valid;
@@ -33,8 +40,7 @@ public class userServiceIMPL implements userService{
 	@Autowired
 	private EmailForRegistration emailforregistration;
 
-	@Autowired
-	private TicketRepo ticketrepo;
+	
 
 	@Override
 	public ResponseEntity<?> userRegistration(signupDTO signupdto) {
@@ -164,24 +170,63 @@ public class userServiceIMPL implements userService{
         return ResponseEntity.ok("Password updated successfully");
 	}
 
-	@Override
-	public ResponseEntity<?> createTicket(Ticket ticket) {
-		 ticketrepo.save(ticket);
-		  return new ResponseEntity<>("{\"status\": \"Ticket Created Successfully\"}", HttpStatus.CREATED);  
 	
-	}
 
-	@Override
-	public ResponseEntity<List<Ticket>> getAllTickets() {
-		 
-		 
-		 return new ResponseEntity<>( ticketrepo.findAll(),HttpStatus.OK); 
-		
-	}
+	
 
 
 	
-	
+	@Value("${freshdesk.api.key}")
+    private String freshdeskApiKey;
+ 
+    public String fetchTickets() {
+        // URL of the Freshdesk tickets API endpoint
+        String freshdeskApiUrl = "https://dxctechnology.freshdesk.com/api/v2/tickets";
+ 
+        // Set up headers with the API key
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Basic " + freshdeskApiKey); // Assuming API key is in base64 format
+ 
+        // Make the GET request to fetch tickets from Freshdesk
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange(freshdeskApiUrl, HttpMethod.GET, entity, String.class);
+ 
+        return response.getBody();
+    }
+
+    @Override
+    public void addContactToUser(Long userId, Contacts body) {
+        Optional<user> optionalUser = userrepo.findById(userId);
+        if (optionalUser.isPresent()) {
+            user User = optionalUser.get();
+            // Set the user for the contact
+            body.setUser(User);
+            // Add the contact to the user's contacts list
+            User.getContacts().add(body);
+            // Update the user in the database to persist the association
+            userrepo.save(User);
+        } else {
+            // Handle the case where user is not found
+            System.out.println("User not found with ID: " + userId);
+        }
+    }
+
+
+
+    @Override
+    public List<Contacts> getContactsByUser(Long userId) {
+        Optional<user> optionalUser = userrepo.findById(userId);
+        if (optionalUser.isPresent()) {
+            user User = optionalUser.get();
+            // Ensure contacts are loaded eagerly
+            User.getContacts().size(); // This line initializes the contacts collection
+            return User.getContacts();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
  
 }
 

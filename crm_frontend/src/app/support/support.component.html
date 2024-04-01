@@ -1,0 +1,38 @@
+
+<div class="container">
+    <h1>Support Tickets</h1>
+    
+    <!-- Your existing user table -->
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          
+          <th scope="col">Subject</th>
+          <th scope="col">Status</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Due by</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Updated At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of tickets">
+          <td>{{ ticket.id }}</td>
+          
+          <td>{{ ticket.subject }}</td>
+          <td>{{ ticket.status }}</td>
+          <td>{{ ticket.priority }}</td>
+          <td>{{ ticket.due_by }}</td>
+          <td>{{ ticket.created_at }}</td>
+          <td>{{ ticket.updated_at }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  
+  
+  
+  
+  </div>
+  
