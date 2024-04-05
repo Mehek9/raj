@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.crm.app.admin.dto.AdminDTO;
+import com.crm.app.admin.dto.Contacts;
 import com.crm.app.admin.dto.Ticket;
 import com.crm.app.admin.dto.User;
 import com.crm.app.admin.entity.Admin;
@@ -85,6 +86,12 @@ public class AdminServiceIMPL implements AdminService{
 	public ResponseEntity<List<Ticket>> getAllTickets() {
 		
 		return adminfeign.getAllTickets();
+	}
+
+	@Override
+	public ResponseEntity<List<Contacts>> getContactsByUser(Long userId) {
+		
+		return adminfeign.getContactsByUser(userId);
 	}
 	
 

@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crm.app.admin.dto.AdminDTO;
+import com.crm.app.admin.dto.Contacts;
 import com.crm.app.admin.dto.Ticket;
 import com.crm.app.admin.dto.User;
 import com.crm.app.admin.entity.Admin;
 import com.crm.app.admin.service.AdminService;
+
 
 
 @RestController
@@ -66,4 +68,8 @@ public class AdminController {
         return  adminservice.getAllTickets();
     }
 	
+	@GetMapping("/{userId}")
+	   public ResponseEntity<List<Contacts>> getContactsByUser(@PathVariable Long userId) {
+	      return adminservice.getContactsByUser(userId);
+	   }
 }
