@@ -9,7 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
-public class signupDTO {
+public class SignupDTO {
 
 	private Long id;
 
@@ -20,21 +20,21 @@ public class signupDTO {
 	@Pattern(regexp = ".*@gmail\\.com$" , message="Email must contain @gmail.com")
 	private String email;
 	
-	@Pattern(regexp = "(^$|[0-9]{10})", message="phonenumber must contain 10 digits")
+	@Pattern(regexp = "(^$|\\d{10})", message="phonenumber must contain 10 digits")
 	private String mobile;
 	@NotEmpty
 	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+])[A-Za-z\\d!@#$%^&*()_+]{8,}$", message="password should contain min 8 characters with alphabets,numeric and special character ")
 	
 	private String password;
 	@CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 	
 	@UpdateTimestamp
-	@Column(name = "updated_at")
-	private LocalDateTime updated_at;
+	@Column(name = "updatedAt")
+	private LocalDateTime updatedAt;
 
-	public signupDTO(Long id, String firstname, String lastname, String email, String mobile, String password) {
+	public SignupDTO(Long id, String firstname, String lastname, String email, String mobile, String password) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -43,7 +43,7 @@ public class signupDTO {
 		this.mobile = mobile;
 		this.password = password;
 	}
-	public signupDTO() {
+	public SignupDTO() {
 		super();
 	}
 	public Long getId() {

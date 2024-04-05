@@ -20,7 +20,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 
-public class user {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO )
@@ -34,12 +34,12 @@ public class user {
 	private boolean access;
 	private String otp;
 	@CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 	
 	@UpdateTimestamp
-	@Column(name = "updated_at")
-	private LocalDateTime updated_at;
+	@Column(name = "updatedAt")
+	private LocalDateTime updatedAt;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -48,8 +48,8 @@ public class user {
 
 	
 	
-	public user(long id, String firstname, String lastname, String email, String mobile, String password,
-			boolean access, String otp, LocalDateTime created_at, LocalDateTime updated_at, List<Contacts> contacts) {
+	public User(long id, String firstname, String lastname, String email, String mobile, String password,
+			boolean access, String otp, LocalDateTime createdAt, LocalDateTime updatedAt, List<Contacts> contacts) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -59,13 +59,13 @@ public class user {
 		this.password = password;
 		this.access = access;
 		this.otp = otp;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 		this.contacts = contacts;
 	}
 	
 	
-	public user() {
+	public User() {
 		super();
 		
 	}
@@ -137,7 +137,7 @@ public class user {
 	public String toString() {
 		return "user [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", mobile=" + mobile + ", password=" + password + ", access=" + access + ", otp=" + otp
-				+ ", created_at=" + created_at + ", updated_at=" + updated_at + ", contacts=" + contacts + "]";
+				+ ", created_at=" + createdAt + ", updated_at=" + updatedAt + ", contacts=" + contacts + "]";
 	}
 
 	

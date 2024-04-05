@@ -4,46 +4,46 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.crm.app.dto.loginDTO;
-import com.crm.app.dto.signupDTO;
+import com.crm.app.dto.LoginDTO;
+import com.crm.app.dto.SignupDTO;
 import com.crm.app.entity.Contacts;
-import com.crm.app.entity.user;
+import com.crm.app.entity.User;
 
 import jakarta.validation.Valid;
 
-public interface userService {
+public interface UserService {
 
-	ResponseEntity<?> userRegistration(signupDTO signupdto);
+	ResponseEntity<String> userRegistration(SignupDTO signupdto);
 
 	
 
-	ResponseEntity<?> Login(loginDTO logindto);
-
-
-
-//	ResponseEntity<?> forgotpassword(String email, String password);
-
-	List<user> getuserdetails();
-
-
-
-	public ResponseEntity<?> access(String email);
-
-
-
-	public ResponseEntity<?> forgotPassword(String email);
-
-
-
-public	ResponseEntity<?> validateOTP(String email, String otp);
+	ResponseEntity<String> login(LoginDTO logindto);
 
 
 
 
 
+	List<User> getuserdetails();
 
 
-ResponseEntity<?> resetPassword(@Valid loginDTO logindto);
+
+	public ResponseEntity<String> access(String email);
+
+
+
+	public ResponseEntity<String> forgotPassword(String email);
+
+
+
+public	ResponseEntity<String> validateOTP(String email, String otp);
+
+
+
+
+
+
+
+ResponseEntity<String> resetPassword(@Valid LoginDTO logindto);
 
 
 
