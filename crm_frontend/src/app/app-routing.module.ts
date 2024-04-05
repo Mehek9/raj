@@ -16,6 +16,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SupportComponent } from './support/support.component';
+import { AddcontactComponent } from './addcontact/addcontact.component';
+import { ExcelreportComponent } from './excelreport/excelreport.component';
+
 
 
 
@@ -37,7 +40,10 @@ const routes: Routes = [
   {path:'admin-login',component:AdminLoginComponent},
   {path:'onboard',component:OnboardComponent},
   {path:'reports',component:ReportsComponent},
-  {path:'support',component:SupportComponent}
+  {path:'support',component:SupportComponent},
+  {path:'addcontact',component:AddcontactComponent},
+  {path:'excel-report',component:ExcelreportComponent}
+
  
  
 

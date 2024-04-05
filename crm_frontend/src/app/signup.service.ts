@@ -6,12 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SignupService {
+ 
+ 
+ 
   
   pipe(arg0: any, arg1: any): Observable<any> {
     throw new Error('Method not implemented.');
   }
-  BASEURL:string="http://localhost:8080/user/";
-  ADMINURL:string="http://localhost:8082/admin/";
+  BASEURL:string="http://localhost:8055/user/";
+  ADMINURL:string="http://localhost:9191/admin/";
     constructor(private http:HttpClient)
      {
    
@@ -49,16 +52,31 @@ export class SignupService {
   // }
   
   approveAccess(email: string): Observable<any> {
-    return this.http.put<any>(`${this.ADMINURL}giveapproval/${email}`, {responseType: 'text'});
+    return this.http.put<any>(`${this.ADMINURL}giveapproval/${email}`, {});
   }
   
   createTicket(ticketData: any): Observable<any> {  
     return this.http.post<any>(`${this.BASEURL}ticket`,ticketData);
      
       }
+
+      
       getAllTickets(): Observable<any> {
-        return this.http.get<any>(`${this.BASEURL}t`);
+        return this.http.get<any>(`${this.BASEURL}ts`);
       }
 
+
+      addcontact(data: any, userId: number) {
+        return this.http.post<any>(`${this.BASEURL}${userId}/contact`, data);
+    }
+      getUserId(): number | null {
+        const userId = sessionStorage.getItem('id');
+        return userId ? +userId : null;
+      }
+
+
+      getContacts(userId:number): Observable<any> {
+        return this.http.get<any>(`${this.ADMINURL}${userId}`);
+      }
 
   }

@@ -1,0 +1,118 @@
+<div class="background">
+ 
+    <div class="c1">
+      <div class="c2">
+        <div class="c3">
+          <div class="c4">
+            <h2>ADD CONTACT</h2>
+          </div>
+          <div class="">
+            <form [formGroup]="fm" (submit)="addContact(fm.value)" novalidate>
+              <div class="form-group">
+                <p>Name</p>
+                <input
+                  type="text"
+                  formControlName="name"
+                 
+                  name="name"
+                  placeholder="Ex: chandra"
+                  class="form-control" required/>
+               
+                <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.controls['name'].invalid" > Name is required*</small>
+              </div>
+
+              <div class="form-group">
+                <p>Category</p>
+                <input
+                  type="text"
+                  formControlName="category"
+                 
+                  name="category"
+                  placeholder="Ex:Pharmacitical"
+                  class="form-control" required/>
+               
+                <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.controls['category'].invalid" >Category is required*</small>
+              </div>
+     
+              <div class="form-group">
+                <p>phone no</p>
+                <input
+                  type="phone"
+                  maxlength="10"
+                  formControlName="phoneNumber"
+                  required
+                  name="phoneNumber"
+                  placeholder="ex: 98482233"
+                  pattern="[6-9][0-9]{9}"
+                  class="form-control"/>
+  
+                  <small class="form-text text-danger" *ngIf="submitted && fm.get('phoneNumber')?.hasError('pattern')">
+                    Please enter a valid 10-digit phone number starting with a digit between 6 and 9.
+                  </small>
+                  
+  
+                  <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.get('phoneNumber')?.hasError('required')"
+                >Phone number is required</small>
+                <!-- <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.get('mobile')?.hasError('pattern')"
+                >Please enter a valid 10-digit phone number</small> -->
+              </div>
+     
+             
+     
+              <div class="form-group">
+               <p>Email</p>
+                <input
+                  type="email"
+                  formControlName="email"
+                  required
+                  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                  name="email"
+                  placeholder="ex: chandrasekhar1126@gmail.com"
+                  class="form-control"/>
+           
+                  <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.get('email')?.hasError('required')"
+                >Email is required</small>
+                <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.get('email')?.hasError('email')"
+                >Invalid email address</small>
+              </div>
+     
+              <div class="form-group">
+                <p>Country</p>
+                <input
+                  type="text"
+                  formControlName="country"
+                 
+                  name="country"
+                  placeholder="Ex:India"
+                  class="form-control" required/>
+               
+                <small
+                  class="form-text text-danger"
+                  *ngIf="submitted && fm.controls['country'].invalid" >Country is required*</small>
+              </div>
+              
+             
+               <button type="submit" class="btn btn-primary" >Add Contact</button>
+            
+              
+             </form>
+           </div>
+         </div>
+       </div>
+     </div>
+    
+     <div class="col-12">
+      
+     </div>
