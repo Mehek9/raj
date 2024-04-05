@@ -29,6 +29,9 @@ import { OnboardComponent } from './onboard/onboard.component';
 
 import { ReportsComponent } from './reports/reports.component';
 import { SupportComponent } from './support/support.component';
+import { AddcontactComponent } from './addcontact/addcontact.component';
+import { ExcelreportComponent } from './excelreport/excelreport.component';
+
 
 
 
@@ -52,6 +55,9 @@ import { SupportComponent } from './support/support.component';
    
     ReportsComponent,
          SupportComponent,
+         AddcontactComponent,
+         ExcelreportComponent,
+        
 
 
   

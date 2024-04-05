@@ -39,7 +39,7 @@ export class SupportComponent {
       case 2: return 'Pending';
       case 3: return 'Resolved';
       case 4: return 'Closed';
-      case 5: return 'Waiting on Customer';
+      
       default: return 'Unknown';
     }
   }

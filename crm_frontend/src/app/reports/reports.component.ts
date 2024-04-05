@@ -7,8 +7,13 @@ import { Component } from '@angular/core';
 })
 export class ReportsComponent {
   showReport: boolean = false;
+  showReport2: boolean = false;
 
   toggleReport() {
     this.showReport = !this.showReport;
+    
+}
+toggleReport02() {
+  this.showReport2 = !this.showReport2; 
 }
 }
