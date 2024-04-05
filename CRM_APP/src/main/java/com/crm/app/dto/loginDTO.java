@@ -3,7 +3,7 @@ package com.crm.app.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
-public class loginDTO {
+public class LoginDTO {
 
 	@NotEmpty
 	@Pattern(regexp = ".*@gmail\\.com$" , message="Email must contain @gmail.com")
@@ -14,13 +14,13 @@ public class loginDTO {
 	
 	private String password;
 
-	public loginDTO(String email, String password) {
+	public LoginDTO(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
 
-	public loginDTO() {
+	public LoginDTO() {
 		super();
 	}
 

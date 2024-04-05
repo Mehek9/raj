@@ -34,11 +34,11 @@ public class Contacts {
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "user_id")
 	    @JsonIgnoreProperties("contacts")
-	    private user user;
+	    private User user;
 
 
 		public Contacts(Long id, String name, String category, String phoneNumber, String email, String country,
-				LocalDateTime dateCreated, user user) {
+				LocalDateTime dateCreated, User user) {
 			super();
 			this.id = id;
 			this.name = name;
@@ -127,12 +127,12 @@ public class Contacts {
 		}
 
 
-		public user getUser() {
+		public User getUser() {
 			return user;
 		}
 
 
-		public void setUser(user user) {
+		public void setUser(User user) {
 		    this.user = user; // Assign the parameter to the field
 		}
 

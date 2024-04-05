@@ -3,12 +3,12 @@ package com.crm.app.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.crm.app.entity.user;
+import com.crm.app.entity.User;
 
 @Repository
-public interface userRepo extends JpaRepository<user, Long>{
+public interface UserRepo extends JpaRepository<User, Long>{
 
-	user findByEmail(String email);
+	User findByEmail(String email);
 
 	
 

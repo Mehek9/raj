@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.crm.app.dto.loginDTO;
-import com.crm.app.dto.signupDTO;
+import com.crm.app.dto.LoginDTO;
+import com.crm.app.dto.SignupDTO;
 import com.crm.app.entity.Contacts;
 
-import com.crm.app.entity.user;
+import com.crm.app.entity.User;
 import com.crm.app.service.ContactService;
-import com.crm.app.service.userService;
+import com.crm.app.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -38,50 +38,57 @@ import jakarta.validation.Valid;
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
-public class userController {
+public class UserController {
 	
-	@Autowired
-	private userService userservice;
+	
+	private final UserService userservice;
 	
 
+	
+	private final ContactService contactservice;
+	
 	@Autowired
-	private ContactService contactservice;
+	public UserController(UserService userservice,ContactService contactservice) {
+		this.contactservice= contactservice;
+		this.userservice=userservice;
+		
+	}
 	
 	@PostMapping("/saveuser")
-	public ResponseEntity<?> userRegistration( @Valid @RequestBody signupDTO signupdto){
+	public ResponseEntity<String> userRegistration( @Valid @RequestBody SignupDTO signupdto){
 		return userservice.userRegistration(signupdto);
 	}
 	@GetMapping("/getuser")
-	public List<user> getusersdetails(){
+	public List<User> getusersdetails(){
 		return userservice.getuserdetails();
 	}
 	
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> Login(@RequestBody loginDTO logindto){
-		return userservice.Login(logindto);
+	public ResponseEntity<String> login(@RequestBody LoginDTO logindto){
+		return userservice.login(logindto);
 	}
 
 	
 	@PutMapping("/giveapproval/{email}")
-	public ResponseEntity<?> access(@PathVariable String email) {
+	public ResponseEntity<String> access(@PathVariable String email) {
 		return userservice.access(email);
 	}
 	
 	
 	 @PostMapping("/forgot-password")
-	    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> body) {
+	    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> body) {
 	        String email = body.get("email");
 	        return userservice.forgotPassword(email);
 	    }
 	 @PostMapping("/validate-otp")
-	    public ResponseEntity<?> validateOTP(@RequestBody Map<String, String> body) {
+	    public ResponseEntity<String> validateOTP(@RequestBody Map<String, String> body) {
 	        String email = body.get("email");
 	        String otp = body.get("otp");
 	        return userservice.validateOTP(email, otp);
 	    }
 	 @PutMapping("/reset-password")
-	    public ResponseEntity<?> resetPassword( @Valid @RequestBody loginDTO logindto) {
+	    public ResponseEntity<String> resetPassword( @Valid @RequestBody LoginDTO logindto) {
 	        
 	        return userservice.resetPassword(logindto);
 	    }
@@ -94,12 +101,8 @@ public class userController {
 
      @PostMapping("/webhook")
      public ResponseEntity<String> handleFreshdeskWebhook(@RequestBody String webhookPayload) {
-         // Process the webhook payload received from Freshdesk
-         System.out.println("Received webhook payload: " + webhookPayload);
-
-         // You can perform any necessary processing of the payload here
-         
-         // Return a response to Freshdesk indicating successful processing
+       
+        
          return ResponseEntity.ok("Webhook payload received and processed successfully");
      }
 

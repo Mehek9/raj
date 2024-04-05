@@ -1,6 +1,6 @@
 package com.crm.app.service;
 
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,55 +19,60 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.crm.app.dto.loginDTO;
-import com.crm.app.dto.signupDTO;
+import com.crm.app.dto.LoginDTO;
+import com.crm.app.dto.SignupDTO;
 import com.crm.app.entity.Contacts;
-import com.crm.app.entity.user;
+import com.crm.app.entity.User;
 
-import com.crm.app.repo.userRepo;
+import com.crm.app.repo.UserRepo;
 
 import jakarta.validation.Valid;
 
 @Service
-public class userServiceIMPL implements userService{
-
-	@Autowired
-	private userRepo userrepo;
-	
-	@Autowired
-	private ModelMapper modelmapper;
-	
-	@Autowired
-	private EmailForRegistration emailforregistration;
+public class UserServiceIMPL implements UserService{
 
 	
+	private final UserRepo userrepo;
+	
+
+	private  final ModelMapper modelmapper;
+	
+
+	private final EmailForRegistration emailforregistration;
+
+	@Autowired
+	public UserServiceIMPL (UserRepo userrepo,ModelMapper modelmapper,EmailForRegistration emailforregistration ) {
+		this.userrepo = userrepo;
+		this.modelmapper = modelmapper;
+		this.emailforregistration = emailforregistration;
+	}
 
 	@Override
-	public ResponseEntity<?> userRegistration(signupDTO signupdto) {
-		user u1 = userrepo.findByEmail(signupdto.getEmail());
-		user u2 = this.modelmapper.map(signupdto, user.class);
+	public ResponseEntity<String> userRegistration(SignupDTO signupdto) {
+		User u1 = userrepo.findByEmail(signupdto.getEmail());
+		User u2 = this.modelmapper.map(signupdto, User.class);
 		
 		if(u1==null) {
 			userrepo.save(u2);
-//			emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM", "welcome");
+
 			   emailforregistration.sendEmailWithAttachment(signupdto.getEmail(),  " Your registration was successful for LOKIS crm app",u2.getFirstname());
 		       
 			return new ResponseEntity<>("{\"status\": \"registered\"}", HttpStatus.OK);
 			
-			//{\"status\": \"logged in\"}
+			
 		}
 		return new ResponseEntity<>("already exists", HttpStatus.BAD_REQUEST);
 	}
 
 	@Override
-	public ResponseEntity<?> Login(loginDTO logindto) {
-		user u3 = userrepo.findByEmail(logindto.getEmail());
+	public ResponseEntity<String> login(LoginDTO logindto) {
+		User u3 = userrepo.findByEmail(logindto.getEmail());
 		
 		if(u3 == null) {
 			
 			return new ResponseEntity<>("Not registered",HttpStatus.BAD_REQUEST);
 		}
-		if(u3.isAccess()==false) {
+		if(!u3.isAccess()) {
 			return new ResponseEntity<>("Not permitted",HttpStatus.BAD_REQUEST);
 		}
 		
@@ -80,29 +85,18 @@ public class userServiceIMPL implements userService{
 		return new ResponseEntity<>("Incorrect password",HttpStatus.BAD_REQUEST);
 	}
 
-//	@Override
-//	public ResponseEntity<?> forgotpassword(String email, String password) {
-//		user u4=userrepo.findByEmail(email);
-//		if(u4 !=null) {
-//		u4.setPassword(password);
-//		userrepo.save(u4);
-////		emailforregistration.sendSimpleEmail(email, u4.getPassword(), "your request for password is approved ");	
-////			
-//		return new ResponseEntity<>("{\"status\": \"Reset\"}", HttpStatus.OK);
-//		}
-//		return new ResponseEntity<>("Account Not Found",HttpStatus.BAD_REQUEST);
-//	}
+
 
 	@Override
-	public List<user> getuserdetails() {
+	public List<User> getuserdetails() {
 		
 		return userrepo.findAll();
 	}
 
 	@Override
-	public ResponseEntity<?> access(String email) {
-		user u6 = userrepo.findByEmail(email);
-		if(u6.isAccess()== false) {
+	public ResponseEntity<String> access(String email) {
+		User u6 = userrepo.findByEmail(email);
+		if(!u6.isAccess()) {
 			u6.setAccess(true);
 			userrepo.save(u6);
 			emailforregistration.sendEmailWithAttachment(email,  " your registration was successful for LOKIS crm app","Welcome To LOKIS CRM");
@@ -115,11 +109,11 @@ public class userServiceIMPL implements userService{
 	 private Map<String, String> otpCache = new HashMap<>();
 
 	@Override
-	public ResponseEntity<?> forgotPassword(String email) {
+	public ResponseEntity<String> forgotPassword(String email) {
 		if (email == null || email.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email cannot be empty");
         }
-		 user u7 = userrepo.findByEmail(email);
+		 User u7 = userrepo.findByEmail(email);
 	        if (u7 == null) {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
 	        }
@@ -133,15 +127,16 @@ public class userServiceIMPL implements userService{
 	        
 	        return ResponseEntity.ok("OTP sent successfully");
 	}
+	 Random random = new Random();
 	 private String generateOTP() {
 	        // Generate a 6-digit OTP
-	        Random random = new Random();
+	       
 	        return String.format("%06d", random.nextInt(1000000));
 	    }
 
 	
 	@Override
-	public ResponseEntity<?> validateOTP(String email, String otp) {
+	public ResponseEntity<String> validateOTP(String email, String otp) {
 		 String storedOTP = otpCache.get(email);
 	        if (storedOTP == null || !storedOTP.equals(otp)) {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP");
@@ -157,9 +152,9 @@ public class userServiceIMPL implements userService{
 	
 
 	@Override
-	public ResponseEntity<?> resetPassword(@Valid loginDTO logindto) {
+	public ResponseEntity<String> resetPassword(@Valid LoginDTO logindto) {
 		
-		user u8= userrepo.findByEmail(logindto.getEmail());
+		User u8= userrepo.findByEmail(logindto.getEmail());
         if (u8 == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
@@ -197,36 +192,34 @@ public class userServiceIMPL implements userService{
 
     @Override
     public void addContactToUser(Long userId, Contacts body) {
-        Optional<user> optionalUser = userrepo.findById(userId);
+        Optional<User> optionalUser = userrepo.findById(userId);
         if (optionalUser.isPresent()) {
-            user User = optionalUser.get();
+            User user = optionalUser.get();
             // Set the user for the contact
-            body.setUser(User);
+            body.setUser(user);
             // Add the contact to the user's contacts list
-            User.getContacts().add(body);
+            user.getContacts().add(body);
             // Update the user in the database to persist the association
-            userrepo.save(User);
-        } else {
-            // Handle the case where user is not found
-            System.out.println("User not found with ID: " + userId);
-        }
+            userrepo.save(user);
+        } 
     }
 
 
 
     @Override
     public List<Contacts> getContactsByUser(Long userId) {
-        Optional<user> optionalUser = userrepo.findById(userId);
+        Optional<User> optionalUser = userrepo.findById(userId);
         if (optionalUser.isPresent()) {
-            user User = optionalUser.get();
-            // Ensure contacts are loaded eagerly
-            User.getContacts().size(); // This line initializes the contacts collection
-            return User.getContacts();
+            User user = optionalUser.get();
+            return user.getContacts(); // Return the contacts collection
         } else {
             return Collections.emptyList();
         }
     }
 
+    }
+
+
  
-}
+
 

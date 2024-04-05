@@ -8,25 +8,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.crm.app.entity.Contacts;
-import com.crm.app.entity.user;
+import com.crm.app.entity.User;
 import com.crm.app.repo.ContactsRepo;
-import com.crm.app.repo.userRepo;
+import com.crm.app.repo.UserRepo;
 
 @Service
 public class ContactServiceIMPL implements ContactService {
 	
+	
+	private final ContactsRepo contactrepo;
+	
+	private final  UserRepo userrepo;
 	@Autowired
-	private ContactsRepo contactrepo;
-	@Autowired
-	private userRepo userrepo;
+	public ContactServiceIMPL(ContactsRepo contactrepo,UserRepo userrepo) {
+		this.contactrepo = contactrepo;
+		this.userrepo = userrepo;
+	}
 	
 	@Override
 	public ResponseEntity<Contacts> addContact(Long userId, Contacts contact) {
-        Optional<user> optionalUser = userrepo.findById(userId); // Use findById(userId) here
+        Optional<User> optionalUser = userrepo.findById(userId); // Use findById(userId) here
         if (optionalUser.isPresent()) {
-            user User = optionalUser.get();
+            User user = optionalUser.get();
             // Associate the contact with the user
-            contact.setUser(User);
+            contact.setUser(user);
             // Save the contact with the updated user information
             contactrepo.save(contact);
             return new ResponseEntity<>(contact, HttpStatus.CREATED);

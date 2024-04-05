@@ -13,9 +13,13 @@ import java.io.File;
 @Service
 public class EmailForRegistration {
 
-	@Autowired
-	private JavaMailSender mailSender;
 	
+	private final JavaMailSender mailSender;
+	
+	@Autowired
+	public EmailForRegistration (JavaMailSender mailSender) {
+		this.mailSender=mailSender;
+	}
 		
 		public void sendEmailWithAttachment(String to, String subject, String text) {
 	        MimeMessage message = mailSender.createMimeMessage();
@@ -36,7 +40,7 @@ public class EmailForRegistration {
     
 	            helper.setText(result, true);
 
-     FileSystemResource file = new FileSystemResource(new File("C:\\Users\\pkumpatla\\Downloads\\logo.png"));
+     FileSystemResource file = new FileSystemResource(new File("Images/logo.png"));
      helper.addInline("welcomeImage", file);
 	            mailSender.send(message);
 	        } 
@@ -67,7 +71,7 @@ public class EmailForRegistration {
     
 	            helper.setText(result, true);
 
-     FileSystemResource file = new FileSystemResource(new File("C:\\Users\\pkumpatla\\Downloads\\logo.png"));
+     FileSystemResource file = new FileSystemResource(new File("Images/logo.png"));
      helper.addInline("welcomeImage", file);
 	            mailSender.send(message);
 	        } 
