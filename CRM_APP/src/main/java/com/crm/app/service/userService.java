@@ -55,6 +55,14 @@ List<Contacts> getContactsByUser(Long userId);
 
 
 
+List<Contacts> segmentContactsByCategory(Long userId,String category);
+
+
+
+List<Contacts> segmentContactsByCountry(Long userId,String country);
+
+
+
 
 
 
