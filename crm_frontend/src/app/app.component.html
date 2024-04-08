@@ -29,18 +29,13 @@
     </ul>
     <ul class="navbar-nav mr-auto" *ngIf="role == 'U'">
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/']">Home</a>
+        <a class="nav-link" [routerLink]="['/user']">Home</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/about']">About</a>
       </li>
      
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/']">Accounts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/']">Leads</a>
-      </li>
+     
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="logout()">Logout</a>
       </li>

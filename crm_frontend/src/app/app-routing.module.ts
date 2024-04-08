@@ -18,6 +18,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { SupportComponent } from './support/support.component';
 import { AddcontactComponent } from './addcontact/addcontact.component';
 import { ExcelreportComponent } from './excelreport/excelreport.component';
+import { UpdatecontactComponent } from './updatecontact/updatecontact.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path:'reports',component:ReportsComponent},
   {path:'support',component:SupportComponent},
   {path:'addcontact',component:AddcontactComponent},
+  {path:'update',component:UpdatecontactComponent},
   {path:'excel-report',component:ExcelreportComponent}
 
  
