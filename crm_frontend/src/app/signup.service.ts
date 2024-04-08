@@ -10,11 +10,9 @@ export class SignupService {
  
  
   
-  pipe(arg0: any, arg1: any): Observable<any> {
-    throw new Error('Method not implemented.');
-  }
-  BASEURL:string="http://localhost:8055/user/";
-  ADMINURL:string="http://localhost:9191/admin/";
+  
+  BASEURL:string="http://localhost:8080/user/";
+  ADMINURL:string="http://localhost:8082/admin/";
     constructor(private http:HttpClient)
      {
    
@@ -79,4 +77,8 @@ export class SignupService {
         return this.http.get<any>(`${this.ADMINURL}${userId}`);
       }
 
+      segmentContacts(userId: number, searchType: string, searchValue: string): Observable<any[]> {
+        const url = `${this.BASEURL}${userId}/segmented/${searchType}/${searchValue}`;
+        return this.http.get<any[]>(url);
+      }
   }

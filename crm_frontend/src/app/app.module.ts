@@ -31,7 +31,8 @@ import { ReportsComponent } from './reports/reports.component';
 import { SupportComponent } from './support/support.component';
 import { AddcontactComponent } from './addcontact/addcontact.component';
 import { ExcelreportComponent } from './excelreport/excelreport.component';
-
+import { UpdatecontactComponent } from './updatecontact/updatecontact.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -57,6 +58,7 @@ import { ExcelreportComponent } from './excelreport/excelreport.component';
          SupportComponent,
          AddcontactComponent,
          ExcelreportComponent,
+         UpdatecontactComponent,
         
 
 
@@ -74,6 +76,8 @@ import { ExcelreportComponent } from './excelreport/excelreport.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDatepickerModule,
+    
 
     ToastrModule.forRoot(),
     

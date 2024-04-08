@@ -8,4 +8,6 @@ public interface ContactService {
 
 	ResponseEntity<Contacts> addContact(Long userId, Contacts contact);
 
+	ResponseEntity<Contacts> updateContact(Long userId, Contacts contact);
+
 }

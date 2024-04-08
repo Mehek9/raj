@@ -138,21 +138,55 @@ public class UserController {
 	 
 
    @PostMapping("/{userId}/contact")
-   public ResponseEntity<Contacts> addContact(@PathVariable Long userId, @RequestBody Contacts contact) {
+   public ResponseEntity<Contacts> addOrUpdateContact(@PathVariable Long userId,@RequestBody Contacts contact) {
+      
+       if (contact.getId() != null) {
+           return updateContact(userId,contact);
+       } else {
+           return addContact(userId,contact);
+       }
+   }
+
+       public ResponseEntity<Contacts> addContact(@PathVariable Long userId, @RequestBody Contacts contact) {
        ResponseEntity<Contacts> response = contactservice.addContact(userId, contact);
        if (response.getStatusCode() == HttpStatus.CREATED) {
            // Contact added successfully, now associate it with the user
-           userservice.addContactToUser(userId, response.getBody());
+    	   Contacts addedContact = response.getBody();
+           userservice.addContactToUser(userId, addedContact);
            return response;
+          
        } else {
            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
        }
    }
+      private ResponseEntity<Contacts> updateContact(@PathVariable Long userId,Contacts contact) {
+    ResponseEntity<Contacts> response = contactservice.updateContact(userId,contact);
+    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+    	 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       
+    }else {
+    	
+            return  response;
+       }
+      }
+
 
    @GetMapping("/{userId}/contacts")
    public ResponseEntity<List<Contacts>> getContactsByUser(@PathVariable Long userId) {
        List<Contacts> contacts = userservice.getContactsByUser(userId);
        return ResponseEntity.ok(contacts);
+   }
+   @GetMapping("/{userId}/segmented/category/{category}")
+   public ResponseEntity<List<Contacts>> segmentContactsByCategory(@PathVariable Long userId,@PathVariable String category) {
+       List<Contacts> segmentedContacts = userservice.segmentContactsByCategory(userId,category);
+       return new ResponseEntity<>(segmentedContacts, HttpStatus.OK);
+   }
+
+
+   @GetMapping("/{userId}/segmented/country/{country}")
+   public ResponseEntity<List<Contacts>> segmentContactsByCountry(@PathVariable Long userId,@PathVariable String country) {
+       List<Contacts> segmentedContacts = userservice.segmentContactsByCountry(userId,country);
+       return new ResponseEntity<>(segmentedContacts, HttpStatus.OK);
    }
 }
 

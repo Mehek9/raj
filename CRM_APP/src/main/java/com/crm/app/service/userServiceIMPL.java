@@ -23,7 +23,7 @@ import com.crm.app.dto.LoginDTO;
 import com.crm.app.dto.SignupDTO;
 import com.crm.app.entity.Contacts;
 import com.crm.app.entity.User;
-
+import com.crm.app.repo.ContactsRepo;
 import com.crm.app.repo.UserRepo;
 
 import jakarta.validation.Valid;
@@ -34,6 +34,8 @@ public class UserServiceIMPL implements UserService{
 	
 	private final UserRepo userrepo;
 	
+	private final ContactsRepo contactsrepo;
+	
 
 	private  final ModelMapper modelmapper;
 	
@@ -41,10 +43,11 @@ public class UserServiceIMPL implements UserService{
 	private final EmailForRegistration emailforregistration;
 
 	@Autowired
-	public UserServiceIMPL (UserRepo userrepo,ModelMapper modelmapper,EmailForRegistration emailforregistration ) {
+	public UserServiceIMPL (UserRepo userrepo,ModelMapper modelmapper,EmailForRegistration emailforregistration ,ContactsRepo contactsrepo ) {
 		this.userrepo = userrepo;
 		this.modelmapper = modelmapper;
 		this.emailforregistration = emailforregistration;
+		this.contactsrepo= contactsrepo;
 	}
 
 	@Override
@@ -217,7 +220,36 @@ public class UserServiceIMPL implements UserService{
         }
     }
 
-    }
+	@Override
+	public List<Contacts> segmentContactsByCategory(Long userId,String category) {
+		
+		Optional<User> optionalUser = userrepo.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return contactsrepo.findByCategory(category); // Return the contacts collection
+        } else {
+            return Collections.emptyList();
+        }
+	        
+	}
+
+	@Override
+	public List<Contacts> segmentContactsByCountry(Long userId, String country) {
+		Optional<User> optionalUser = userrepo.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return contactsrepo.findByCountry(country); // Return the contacts collection
+        } else {
+            return Collections.emptyList();
+        }
+	        
+	} 
+		
+	
+
+	}
+
+    
 
 
  

@@ -1,0 +1,33 @@
+
+  .c4{
+  
+  margin-left: 45%;
+  color: azure;
+  
+  }
+  
+  button{
+    margin-left:35% ;
+    margin-bottom: 100px;
+  }
+  .form-group{
+      color: azure;
+    font-weight: bold;
+    padding-bottom: 10px;
+  
+  }
+  form{
+    margin-top: 3%;
+    margin-left: 25%;
+    margin-right: 15%;
+  }
+  input{
+    width: 700px;
+   
+  }
+  p{
+    color: black;
+  }
+  h2{
+    color: black;
+  }
