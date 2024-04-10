@@ -31,7 +31,7 @@ public class Contacts {
 	    private LocalDateTime dateCreated;
 
 	 
-	    @ManyToOne(fetch = FetchType.LAZY)
+	    @ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(name = "user_id")
 	    @JsonIgnoreProperties("contacts")
 	    private User user;
