@@ -49,7 +49,7 @@ export class AddcontactComponent implements OnInit {
           next: resp => {
               console.log(resp);
               this.toast.success('Contact added successfully');
-              this._router.navigate(['login']);
+              this._router.navigate(['user']);
           },
           error: err => {
               console.error(err);

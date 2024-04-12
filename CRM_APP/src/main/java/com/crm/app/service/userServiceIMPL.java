@@ -1,6 +1,7 @@
 package com.crm.app.service;
 
 
+import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -179,12 +180,13 @@ public class UserServiceIMPL implements UserService{
  
     public String fetchTickets() {
         // URL of the Freshdesk tickets API endpoint
-        String freshdeskApiUrl = "https://dxctechnology.freshdesk.com/api/v2/tickets";
- 
+        String freshdeskApiUrl = "https://lokiscrm.freshdesk.com/api/v2/tickets";
+       
+
         // Set up headers with the API key
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Basic " + freshdeskApiKey); // Assuming API key is in base64 format
- 
+       headers.set("Auth", "Basic " + freshdeskApiKey); // Assuming API key is in base64 format
+       
         // Make the GET request to fetch tickets from Freshdesk
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> entity = new HttpEntity<>(headers);

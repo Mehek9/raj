@@ -7,7 +7,7 @@
             <h2>ADD CONTACT</h2>
           </div>
           <div class="">
-            <form [formGroup]="fm" (submit)="addContact(fm.value)" novalidate>
+            <form [formGroup]="fm" (submit)="addContact(fm.value)"  novalidate>
               <div class="form-group">
                 <p>Name</p>
                 <input
@@ -25,18 +25,21 @@
 
               <div class="form-group">
                 <p>Category</p>
-                <input
-                  type="text"
-                  formControlName="category"
-                 
-                  name="category"
-                  placeholder="Ex:Pharmacitical"
-                  class="form-control" required/>
-               
-                <small
-                  class="form-text text-danger"
-                  *ngIf="submitted && fm.controls['category'].invalid" >Category is required*</small>
-              </div>
+                <select formControlName="category" name="category" class="form-control" required>
+                    <option value="">Select Category</option>
+                    <option value="Textile">Textile</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Software">Software</option>
+                    <option value="Pharmaceutical">Pharmaceutical</option>
+                    <option value="Automobile">Automobile</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Food and Beverage">Food and Beverage</option>
+                    <option value="Finance">Finance</option>
+                </select>
+                <small class="form-text text-danger" *ngIf="submitted && fm.controls['category'].invalid">Category is required</small>
+            </div>
      
               <div class="form-group">
                 <p>phone no</p>
@@ -87,24 +90,24 @@
                   *ngIf="submitted && fm.get('email')?.hasError('email')"
                 >Invalid email address</small>
               </div>
-     
               <div class="form-group">
                 <p>Country</p>
-                <input
-                  type="text"
-                  formControlName="country"
-                 
-                  name="country"
-                  placeholder="Ex:India"
-                  class="form-control" required/>
-               
-                <small
-                  class="form-text text-danger"
-                  *ngIf="submitted && fm.controls['country'].invalid" >Country is required*</small>
+                
+                <select formControlName="country" name="country" class="form-control" required>
+                  <option value="">Select Country</option>
+                  <option value="INDIA">India</option>
+                  <option value="USA">USA</option>
+                  <option value="UK">UK</option>
+                  <option value="UAE">UAE</option>
+                  <option value="AUSTRALIA">Australia</option>
+                  <option value="CHINA">China</option>
+                  <option value="RUSSIA">Russia</option>
+                </select>
+                <small class="form-text text-danger" *ngIf="submitted && fm.controls['country'].invalid">Country is required</small>
               </div>
               
-             
-               <button type="submit" class="btn btn-primary" >Add Contact</button>
+             <br>
+               <button type="submit" class="btn btn-primary" action="addcontact" >Add Contact</button>
             
               
              </form>
