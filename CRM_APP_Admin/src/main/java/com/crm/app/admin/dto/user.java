@@ -1,17 +1,41 @@
 package com.crm.app.admin.dto;
 
+import java.time.LocalDateTime;
+import java.util.List;
 
 
-public class user {
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+
+public class User {
 	
 		private long id;
 
 		private String firstname;
 		private String lastname;
 		private String email;
-		private Long mobile;
+		private String mobile;
 		private String password;
-		public user(Long id, String firstname, String lastname, String email, Long mobile, String password) {
+		
+	    private LocalDateTime createdAt;
+		
+		
+		private LocalDateTime updatedAt;
+		
+		@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+		@JsonIgnore
+		private List<Contacts> contacts;
+
+
+		
+		
+		public User(long id, String firstname, String lastname, String email, String mobile, String password,
+				boolean access, String otp, LocalDateTime createdAt, LocalDateTime updatedAt, List<Contacts> contacts) {
 			super();
 			this.id = id;
 			this.firstname = firstname;
@@ -19,11 +43,19 @@ public class user {
 			this.email = email;
 			this.mobile = mobile;
 			this.password = password;
-		}
-		public user() {
-			super();
+			
+			this.createdAt = createdAt;
+			this.updatedAt = updatedAt;
+			this.contacts = contacts;
 		}
 		
+		
+		public User() {
+			super();
+			
+		}
+
+
 		public long getId() {
 			return id;
 		}
@@ -48,10 +80,10 @@ public class user {
 		public void setEmail(String email) {
 			this.email = email;
 		}
-		public Long getMobile() {
+		public String getMobile() {
 			return mobile;
 		}
-		public void setMobile(Long mobile) {
+		public void setMobile(String mobile) {
 			this.mobile = mobile;
 		}
 		public String getPassword() {
@@ -60,12 +92,31 @@ public class user {
 		public void setPassword(String password) {
 			this.password = password;
 		}
+		
+		
+		
+
+
+		public List<Contacts> getContacts() {
+			return contacts;
+		}
+
+
+		public void setContacts(List<Contacts> contacts) {
+			this.contacts = contacts;
+		}
+
+
 		@Override
 		public String toString() {
-			return "user [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-					+ ", mobile=" + mobile + ", password=" + password + "]";
+			return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+					+ ", mobile=" + mobile + ", password=" + password + ", createdAt=" + createdAt + ", updatedAt="
+					+ updatedAt + ", contacts=" + contacts + "]";
 		}
+
+
 		
+
 		
 		
 	}

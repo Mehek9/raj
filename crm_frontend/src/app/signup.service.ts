@@ -11,8 +11,9 @@ export class SignupService {
  
   
   
-  BASEURL:string="http://localhost:8080/user/";
-  ADMINURL:string="http://localhost:8082/admin/";
+  BASEURL:string="http://localhost:8055/user/";
+  ADMINURL:string="http://localhost:9191/admin/";
+  LEADURL:string="http://localhost:8055/leads/";
     constructor(private http:HttpClient)
      {
    
@@ -81,4 +82,33 @@ export class SignupService {
         const url = `${this.BASEURL}${userId}/segmented/${searchType}/${searchValue}`;
         return this.http.get<any[]>(url);
       }
+      
+    
+
+      segmentAndAssign(requestData: any) {
+        return this.http.post<any>(this.LEADURL + 'segmentAndAssign', requestData);
+      }
+    
+      getLeadTrackingsByContactId(leadsId: number) {
+        return this.http.get<any>(this.LEADURL + `lead-trackings/contact/${leadsId}`);
+      }
+    
+      updateLeadTrackingStatus(leadsId: number, requestData: any) {
+        return this.http.put<any>(this.LEADURL + `updateStatus/${leadsId}`, requestData);
+      }
+    
+      getSalesRepresentativesByCategory(category: string) {
+        return this.http.get<any>(this.LEADURL + `sales-representatives/category/${category}`);
+      }
+    
+      getContactsByCategory(category: string) {
+        return this.http.get<any>(this.LEADURL + `contacts/category/${category}`);
+      }
+    
+      getAllLeadTrackings() {
+        return this.http.get<any>(this.LEADURL + 'lead-trackings');
+      }
+
+
+
   }

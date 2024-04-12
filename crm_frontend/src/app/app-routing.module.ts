@@ -19,6 +19,7 @@ import { SupportComponent } from './support/support.component';
 import { AddcontactComponent } from './addcontact/addcontact.component';
 import { ExcelreportComponent } from './excelreport/excelreport.component';
 import { UpdatecontactComponent } from './updatecontact/updatecontact.component';
+import { LeadTrackingComponent } from './lead-tracking/lead-tracking.component';
 
 
 
@@ -44,7 +45,8 @@ const routes: Routes = [
   {path:'support',component:SupportComponent},
   {path:'addcontact',component:AddcontactComponent},
   {path:'update',component:UpdatecontactComponent},
-  {path:'excel-report',component:ExcelreportComponent}
+  {path:'excel-report',component:ExcelreportComponent},
+  {path:'lead-tracking',component:LeadTrackingComponent}
 
  
  

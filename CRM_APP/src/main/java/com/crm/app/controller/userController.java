@@ -1,5 +1,6 @@
 package com.crm.app.controller;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -109,22 +112,23 @@ public class UserController {
 
      @GetMapping("/ts")
      public ResponseEntity<String> fetchTickets() {
-         String freshdeskApiUrl = "https://dxctechnology.freshdesk.com/api/v2/tickets";
+         String freshdeskApiUrl = "https://lokiscrm.freshdesk.com/api/v2/tickets";
 
+        
          // Set up headers with the API key
          HttpHeaders headers = new HttpHeaders();
-         headers.setBasicAuth(freshdeskApiKey, ""); // Assuming freshdeskApiKey holds the correct API key value
+         headers.setBasicAuth(freshdeskApiUrl); // Use "Authorization" header
 
          // Make the GET request to fetch tickets from Freshdesk
          RestTemplate restTemplate = new RestTemplate();
          HttpEntity<String> entity = new HttpEntity<>(headers);
-         
+
          try {
              ResponseEntity<String> response = restTemplate.exchange(freshdeskApiUrl, HttpMethod.GET, entity, String.class);
              return ResponseEntity.ok(response.getBody());
-         } catch (HttpStatusCodeException ex) {
+         } catch (HttpClientErrorException ex) {
              // Handle specific error status codes
-             HttpStatus statusCode = (HttpStatus) ex.getStatusCode();
+             HttpStatusCode statusCode = ex.getStatusCode();
              String responseBody = ex.getResponseBodyAsString();
              // Log the error and return an appropriate response
              return ResponseEntity.status(statusCode).body("Failed to fetch tickets from Freshdesk: " + responseBody);

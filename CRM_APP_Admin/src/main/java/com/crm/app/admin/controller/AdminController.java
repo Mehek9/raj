@@ -14,27 +14,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crm.app.admin.dto.AdminDTO;
-import com.crm.app.admin.dto.user;
+import com.crm.app.admin.dto.Contacts;
+import com.crm.app.admin.dto.Ticket;
+import com.crm.app.admin.dto.User;
 import com.crm.app.admin.entity.Admin;
 import com.crm.app.admin.service.AdminService;
+
+
 
 @RestController
 @CrossOrigin
 @RequestMapping("/admin")
 public class AdminController {
 	
+	
+	private final AdminService adminservice;
+	
 	@Autowired
-	private AdminService adminservice;
+	public AdminController(AdminService adminservice) {
+		this.adminservice = adminservice;
+	}
 	
 	@PostMapping("/addadmin")
 	
-	public ResponseEntity<?>addadmin(@RequestBody AdminDTO admindto){
+	public ResponseEntity<String>addadmin(@RequestBody AdminDTO admindto){
 		
 		return adminservice.addadmin(admindto);
 	}
 	@PostMapping("/adminlogin")
-	public ResponseEntity<?> Login(@RequestBody Admin admindto){
-		return adminservice.Login(admindto);
+	public ResponseEntity<String> login(@RequestBody Admin admindto){
+		return adminservice.login(admindto);
 	}
 	
 	@GetMapping("/getadmin")
@@ -44,7 +53,7 @@ public class AdminController {
 	
 	@GetMapping("/getuserdetails")
 	
-	public List<user> getdetails(){
+	public List<User> getdetails(){
 		return adminservice.getdetails();
 	}
 	
@@ -53,5 +62,14 @@ public class AdminController {
 		return adminservice.access(email);
 	}
 
-
+	@GetMapping("/tickets")
+    public ResponseEntity<List<Ticket>> getAllTickets() {
+        
+        return  adminservice.getAllTickets();
+    }
+	
+	@GetMapping("/{userId}")
+	   public ResponseEntity<List<Contacts>> getContactsByUser(@PathVariable Long userId) {
+	      return adminservice.getContactsByUser(userId);
+	   }
 }

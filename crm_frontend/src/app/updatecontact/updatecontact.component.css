@@ -17,7 +17,7 @@
   
   }
   form{
-    margin-top: 3%;
+    margin-top: 2%;
     margin-left: 25%;
     margin-right: 15%;
   }
@@ -25,9 +25,14 @@
     width: 700px;
    
   }
+  select{
+    width: 700px;
+  }
   p{
     color: black;
   }
   h2{
     color: black;
+    padding-top: 4%;
+
   }
