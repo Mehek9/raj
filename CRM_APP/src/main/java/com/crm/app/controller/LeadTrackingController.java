@@ -56,6 +56,9 @@ public class LeadTrackingController {
             SalesRepresentative salesRep = salesReps.get(0);
             List<Contacts> segmentedContacts = segmentationService.segmentContactsByCategory(category);
             List<LeadTracking> leadTrackings = leadTrackingService.assignContactsToSalesRepresentative(category, status, salesRep, segmentedContacts);
+            if (leadTrackings.isEmpty()) {
+                return ResponseEntity.ok("No new contacts to assign.");
+            }
             return ResponseEntity.ok(leadTrackings);
         } else if (salesReps.size() > 1) {
             return ResponseEntity.status(HttpStatus.MULTIPLE_CHOICES).body("Multiple sales representatives found for category '" + category + "'. Manual assignment required.");
